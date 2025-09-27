@@ -43,26 +43,7 @@ Now it's a streamlined 5-minute process:
 
 ## 🚀 Try It Out
 
-### 🌐 Option 1: Deploy Your Own (Recommended)
-
-**What you'll need:**
-- [Cloudflare account](https://dash.cloudflare.com/sign-up) (free tier works!)
-- [OpenAI API key](https://platform.openai.com/api-keys) (or use Cloudflare Workers AI)
-
-**Quick deploy:**
-```bash
-git clone https://github.com/bradenweii/cf_ai_preread_generator.git
-cd cf_ai_preread_generator
-npm install
-
-# Add your OpenAI key to .dev.vars
-echo "OPENAI_API_KEY=your_key_here" > .dev.vars
-
-# Deploy to Cloudflare (it's free!)
-npm run deploy
-```
-
-### 💻 Option 2: Run Locally
+### 💻Run Locally
 
 ```bash
 # Clone and setup
@@ -78,13 +59,11 @@ npm start
 # Visit http://localhost:5173
 ```
 
-### 🎯 Option 3: Try the Demo
-
-*Coming soon - I'm working on hosting a live demo version*
-
 ## 📖 Using the Tool
 
 ### 🎯 The Guided Workflow (My Favorite Way)
+you can simply start by asking the agent you want to generate a pre read for the sprint meeting next tuesday. The workflow will automatically pop up. 
+Try using this example sprint pdf doc
 
 1. **Click the 📅 calendar icon** in the header (or just type "Generate sprint meeting pre-reads" in chat)
 2. **Upload your sprint document** - drag & drop any PDF, Word doc, Markdown, or text file
@@ -128,63 +107,10 @@ Just start typing! The AI can help with:
 - Client updates that build confidence
 - Cross-team coordination that actually works
 
-## 🛠️ What's Under the Hood
 
-I built this on top of some amazing technologies:
 
-- **[Cloudflare Agents](https://github.com/cloudflare/agents)** - The AI agent framework that makes the magic happen
-- **Cloudflare Workers** - Edge computing so it's fast everywhere in the world
-- **React + TypeScript** - Modern UI that's actually maintainable
-- **AI SDK** - Works with OpenAI, Claude, or Cloudflare's own AI models
-- **Tailwind CSS** - Because life's too short for custom CSS
 
-### 🔧 Want to Customize It?
 
-The cool thing about building on Cloudflare Agents is how easy it is to modify:
-
-**Add new document types:** Just update the accepted file types in `tools.ts`  
-**Change the pre-read format:** Modify the template in the `generatePreRead` tool  
-**Switch AI models:** Swap OpenAI for Cloudflare Workers AI or Claude  
-**Custom email templates:** Update the email generation logic  
-
-Everything is in the code and well-commented. Fork it and make it yours!
-
-## 🔒 Privacy & Security
-
-**Your documents are safe:**
-- Files are processed locally in your browser first
-- Nothing gets stored permanently anywhere
-- AI processing happens on secure edge servers
-- Your API keys stay in your environment variables
-
-**No vendor lock-in:**
-- Deploy to your own Cloudflare account
-- Use your own AI API keys
-- Full control over your data and processing
-
-## 🤝 Want to Help Make This Better?
-
-I'd love your contributions! Here are some ideas:
-
-**Easy wins:**
-- 🐛 Found a bug? [Open an issue](https://github.com/bradenweii/cf_ai_preread_generator/issues)
-- 📝 Improve the documentation
-- 🎨 Make the UI even prettier
-- 📧 Add more email template options
-
-**Bigger features:**
-- 🔗 Integration with Slack/Teams for direct sending
-- 📊 Analytics on meeting prep time saved
-- 🗓️ Calendar integration for automatic scheduling
-- 🌍 Multi-language support
-
-Just fork it, make your changes, and send a PR. I'm pretty responsive!
-
-## 💬 Questions or Issues?
-
-- **Found a bug?** [Open an issue](https://github.com/bradenweii/cf_ai_preread_generator/issues)
-- **Need help?** Check out the [Cloudflare Agents docs](https://developers.cloudflare.com/agents/) or [Cloudflare Discord](https://discord.cloudflare.com)
-- **Want to chat?** Feel free to reach out through GitHub issues
 
 ## 📝 License
 
@@ -192,10 +118,3 @@ MIT License - basically, do whatever you want with this code. Just don't blame m
 
 ---
 
-## 🎉 Thanks
-
-Huge thanks to the Cloudflare team for building such an awesome platform. The [Agents framework](https://github.com/cloudflare/agents) made this project possible, and Workers makes deployment a breeze.
-
-**Ready to never manually write a sprint pre-read again?** 🚀  
-
-👆 [Deploy it now](https://deploy.workers.cloudflare.com/?url=https://github.com/bradenweii/cf_ai_preread_generator) or [run it locally](#try-it-out) and see the magic happen!
