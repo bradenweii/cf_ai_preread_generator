@@ -63,14 +63,14 @@ npm start
 
 ### 🎯 The Guided Workflow (My Favorite Way)
 you can simply start by asking the agent you want to generate a pre read for the sprint meeting next tuesday. The workflow will automatically pop up. 
-Try using this example sprint pdf doc
+Try using this [example sprint pdf doc](fake_sprint_planning.pdf)
 
 1. **Click the 📅 calendar icon** in the header (or just type "Generate sprint meeting pre-reads" in chat)
 2. **Upload your sprint document** - drag & drop any PDF, Word doc, Markdown, or text file
-3. **Fill in meeting details** - title, date, time (takes 30 seconds)
-4. **Add attendee emails** - paste them in or type one by one
+3. **Fill in meeting details** - title, date, time (takes 10 seconds)
+4. **Add attendee emails** - paste them in from the your meeting
 5. **Review the generated pre-read** - the AI extracts key points, action items, and creates a structured summary
-6. **Edit if needed** - click "Edit" to customize the content
+6. **Edit if needed** - click "Edit" to customize the content, you can also the agent to fix it later on.
 7. **Get your email draft** - ready to copy/paste and send!
 
 ### 💬 Chat Interface (For Quick Questions)
@@ -80,6 +80,7 @@ Just start typing! The AI can help with:
 - Upload documents directly in chat
 - Ask follow-up questions about the generated content
 - Get help with specific formatting or content requests
+- Make it a recurring event by asking!
 
 ## 🎯 Who This Helps
 
