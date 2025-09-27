@@ -1,238 +1,201 @@
-# 🤖 Chat Agent Starter Kit
+# 📅 Sprint Pre-Read Generator
 
 ![npm i agents command](./npm-agents-banner.svg)
 
-<a href="https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/agents-starter"><img src="https://deploy.workers.cloudflare.com/button" alt="Deploy to Cloudflare"/></a>
+<a href="https://deploy.workers.cloudflare.com/?url=https://github.com/bradenweii/cf_ai_preread_generator"><img src="https://deploy.workers.cloudflare.com/button" alt="Deploy to Cloudflare"/></a>
 
-A starter template for building AI-powered chat agents using Cloudflare's Agent platform, powered by [`agents`](https://www.npmjs.com/package/agents). This project provides a foundation for creating interactive chat experiences with AI, complete with a modern UI and tool integration capabilities.
+## 💡 About This Project
 
-## Features
+I built this Sprint Pre-Read Generator to solve a real problem I faced in my development teams - spending too much time manually creating meeting pre-reads from sprint documents. This project started from the [Cloudflare Agents starter template](https://github.com/cloudflare/agents) and evolved into a specialized workflow tool.
 
-- 💬 Interactive chat interface with AI
-- 🛠️ Built-in tool system with human-in-the-loop confirmation
-- 📅 Advanced task scheduling (one-time, delayed, and recurring via cron)
-- 🌓 Dark/Light theme support
-- ⚡️ Real-time streaming responses
-- 🔄 State management and chat history
-- 🎨 Modern, responsive UI
+**What I added:**
+- 📋 **Step-by-step workflow UI** - A guided interface that walks users through document upload, meeting details, and attendee management
+- 🤖 **Smart document processing** - AI-powered extraction and analysis of sprint documents (PDF, Word, Markdown, text)
+- ✏️ **Editable pre-reads** - Generated content that users can review and customize before sending
+- 📧 **Email integration** - Ready-to-send email drafts with proper formatting
+- ✅ **Human-in-the-loop confirmations** - Approve/reject buttons for all AI actions to maintain control
 
-## Prerequisites
+This tool transforms a 30-minute manual process into a 5-minute guided workflow, while ensuring consistent, professional meeting documentation.
 
-- Cloudflare account
-- OpenAI API key
+## ✨ How It Works
 
-## Quick Start
+### 🎯 The Problem I Solved
+Before building this tool, creating sprint pre-reads was a manual, time-consuming process:
+1. ⏰ **30+ minutes** to read through sprint documents
+2. 📝 **Manual extraction** of key points and action items
+3. 🔄 **Inconsistent formatting** across different team members
+4. 📧 **Email drafting** and attendee management overhead
 
-1. Create a new project:
+### 🚀 My Solution
+Now it's a streamlined 5-minute process:
+1. **📤 Upload** your sprint document (any format)
+2. **📋 Fill in** meeting details through guided steps
+3. **👥 Add** attendee emails
+4. **✏️ Review & edit** the AI-generated pre-read
+5. **📧 Send** with one-click email generation
 
+### 🛠️ Technical Implementation
+- **Cloudflare Workers** for edge computing and fast global performance
+- **React + TypeScript** for a modern, type-safe UI
+- **AI SDK integration** with OpenAI/Workers AI for document processing
+- **Tailwind CSS** for responsive, beautiful design
+- **Human-in-the-loop** confirmations to maintain control over AI actions
+
+## 🚀 Try It Out
+
+### 🌐 Option 1: Deploy Your Own (Recommended)
+
+**What you'll need:**
+- [Cloudflare account](https://dash.cloudflare.com/sign-up) (free tier works!)
+- [OpenAI API key](https://platform.openai.com/api-keys) (or use Cloudflare Workers AI)
+
+**Quick deploy:**
 ```bash
-npx create-cloudflare@latest --template cloudflare/agents-starter
-```
-
-2. Install dependencies:
-
-```bash
+git clone https://github.com/bradenweii/cf_ai_preread_generator.git
+cd cf_ai_preread_generator
 npm install
-```
 
-3. Set up your environment:
+# Add your OpenAI key to .dev.vars
+echo "OPENAI_API_KEY=your_key_here" > .dev.vars
 
-Create a `.dev.vars` file:
-
-```env
-OPENAI_API_KEY=your_openai_api_key
-```
-
-4. Run locally:
-
-```bash
-npm start
-```
-
-5. Deploy:
-
-```bash
+# Deploy to Cloudflare (it's free!)
 npm run deploy
 ```
 
-## Project Structure
+### 💻 Option 2: Run Locally
 
-```
-├── src/
-│   ├── app.tsx        # Chat UI implementation
-│   ├── server.ts      # Chat agent logic
-│   ├── tools.ts       # Tool definitions
-│   ├── utils.ts       # Helper functions
-│   └── styles.css     # UI styling
-```
+```bash
+# Clone and setup
+git clone https://github.com/bradenweii/cf_ai_preread_generator.git
+cd cf_ai_preread_generator
+npm install
 
-## Customization Guide
+# Add your API key
+echo "OPENAI_API_KEY=your_key_here" > .dev.vars
 
-### Adding New Tools
-
-Add new tools in `tools.ts` using the tool builder:
-
-```ts
-// Example of a tool that requires confirmation
-const searchDatabase = tool({
-  description: "Search the database for user records",
-  parameters: z.object({
-    query: z.string(),
-    limit: z.number().optional()
-  })
-  // No execute function = requires confirmation
-});
-
-// Example of an auto-executing tool
-const getCurrentTime = tool({
-  description: "Get current server time",
-  parameters: z.object({}),
-  execute: async () => new Date().toISOString()
-});
-
-// Scheduling tool implementation
-const scheduleTask = tool({
-  description:
-    "schedule a task to be executed at a later time. 'when' can be a date, a delay in seconds, or a cron pattern.",
-  parameters: z.object({
-    type: z.enum(["scheduled", "delayed", "cron"]),
-    when: z.union([z.number(), z.string()]),
-    payload: z.string()
-  }),
-  execute: async ({ type, when, payload }) => {
-    // ... see the implementation in tools.ts
-  }
-});
+# Start development server
+npm start
+# Visit http://localhost:5173
 ```
 
-To handle tool confirmations, add execution functions to the `executions` object:
+### 🎯 Option 3: Try the Demo
 
-```typescript
-export const executions = {
-  searchDatabase: async ({
-    query,
-    limit
-  }: {
-    query: string;
-    limit?: number;
-  }) => {
-    // Implementation for when the tool is confirmed
-    const results = await db.search(query, limit);
-    return results;
-  }
-  // Add more execution handlers for other tools that require confirmation
-};
-```
+*Coming soon - I'm working on hosting a live demo version*
 
-Tools can be configured in two ways:
+## 📖 Using the Tool
 
-1. With an `execute` function for automatic execution
-2. Without an `execute` function, requiring confirmation and using the `executions` object to handle the confirmed action. NOTE: The keys in `executions` should match `toolsRequiringConfirmation` in `app.tsx`.
+### 🎯 The Guided Workflow (My Favorite Way)
 
-### Use a different AI model provider
+1. **Click the 📅 calendar icon** in the header (or just type "Generate sprint meeting pre-reads" in chat)
+2. **Upload your sprint document** - drag & drop any PDF, Word doc, Markdown, or text file
+3. **Fill in meeting details** - title, date, time (takes 30 seconds)
+4. **Add attendee emails** - paste them in or type one by one
+5. **Review the generated pre-read** - the AI extracts key points, action items, and creates a structured summary
+6. **Edit if needed** - click "Edit" to customize the content
+7. **Get your email draft** - ready to copy/paste and send!
 
-The starting [`server.ts`](https://github.com/cloudflare/agents-starter/blob/main/src/server.ts) implementation uses the [`ai-sdk`](https://sdk.vercel.ai/docs/introduction) and the [OpenAI provider](https://sdk.vercel.ai/providers/ai-sdk-providers/openai), but you can use any AI model provider by:
+### 💬 Chat Interface (For Quick Questions)
 
-1. Installing an alternative AI provider for the `ai-sdk`, such as the [`workers-ai-provider`](https://sdk.vercel.ai/providers/community-providers/cloudflare-workers-ai) or [`anthropic`](https://sdk.vercel.ai/providers/ai-sdk-providers/anthropic) provider:
-2. Replacing the AI SDK with the [OpenAI SDK](https://github.com/openai/openai-node)
-3. Using the Cloudflare [Workers AI + AI Gateway](https://developers.cloudflare.com/ai-gateway/providers/workersai/#workers-binding) binding API directly
+Just start typing! The AI can help with:
+- "Generate a pre-read for tomorrow's sprint review"
+- Upload documents directly in chat
+- Ask follow-up questions about the generated content
+- Get help with specific formatting or content requests
 
-For example, to use the [`workers-ai-provider`](https://sdk.vercel.ai/providers/community-providers/cloudflare-workers-ai), install the package:
+## 🎯 Who This Helps
 
-```sh
-npm install workers-ai-provider
-```
+### 👩‍💻 Development Teams
+**Before:** "Ugh, I need to spend 30 minutes reading through all these tickets and writing a summary..."  
+**After:** "Just uploaded the sprint doc, got a perfect pre-read in 2 minutes!"
 
-Add an `ai` binding to `wrangler.jsonc`:
+- Weekly sprint reviews become consistent and professional
+- No more scrambling to prepare meeting materials
+- Everyone gets the same high-quality information
 
-```jsonc
-// rest of file
-  "ai": {
-    "binding": "AI"
-  }
-// rest of file
-```
+### 🏢 Scrum Masters & Project Managers
+**Before:** "I'm spending more time on meeting prep than actual project work..."  
+**After:** "I can focus on facilitating great meetings instead of document prep!"
 
-Replace the `@ai-sdk/openai` import and usage with the `workers-ai-provider`:
+- Standardized communication across all teams
+- More time for strategic work, less on administrative tasks
+- Stakeholder updates that actually look professional
 
-```diff
-// server.ts
-// Change the imports
-- import { openai } from "@ai-sdk/openai";
-+ import { createWorkersAI } from 'workers-ai-provider';
+### 🎯 Product Teams
+**Before:** "Our sprint summaries are inconsistent and missing key details..."  
+**After:** "Every stakeholder gets comprehensive, well-formatted updates!"
 
-// Create a Workers AI instance
-+ const workersai = createWorkersAI({ binding: env.AI });
+- Executive summaries that highlight what matters
+- Client updates that build confidence
+- Cross-team coordination that actually works
 
-// Use it when calling the streamText method (or other methods)
-// from the ai-sdk
-- const model = openai("gpt-4o-2024-11-20");
-+ const model = workersai("@cf/deepseek-ai/deepseek-r1-distill-qwen-32b")
-```
+## 🛠️ What's Under the Hood
 
-Commit your changes and then run the `agents-starter` as per the rest of this README.
+I built this on top of some amazing technologies:
 
-### Modifying the UI
+- **[Cloudflare Agents](https://github.com/cloudflare/agents)** - The AI agent framework that makes the magic happen
+- **Cloudflare Workers** - Edge computing so it's fast everywhere in the world
+- **React + TypeScript** - Modern UI that's actually maintainable
+- **AI SDK** - Works with OpenAI, Claude, or Cloudflare's own AI models
+- **Tailwind CSS** - Because life's too short for custom CSS
 
-The chat interface is built with React and can be customized in `app.tsx`:
+### 🔧 Want to Customize It?
 
-- Modify the theme colors in `styles.css`
-- Add new UI components in the chat container
-- Customize message rendering and tool confirmation dialogs
-- Add new controls to the header
+The cool thing about building on Cloudflare Agents is how easy it is to modify:
 
-### Example Use Cases
+**Add new document types:** Just update the accepted file types in `tools.ts`  
+**Change the pre-read format:** Modify the template in the `generatePreRead` tool  
+**Switch AI models:** Swap OpenAI for Cloudflare Workers AI or Claude  
+**Custom email templates:** Update the email generation logic  
 
-1. **Customer Support Agent**
-   - Add tools for:
-     - Ticket creation/lookup
-     - Order status checking
-     - Product recommendations
-     - FAQ database search
+Everything is in the code and well-commented. Fork it and make it yours!
 
-2. **Development Assistant**
-   - Integrate tools for:
-     - Code linting
-     - Git operations
-     - Documentation search
-     - Dependency checking
+## 🔒 Privacy & Security
 
-3. **Data Analysis Assistant**
-   - Build tools for:
-     - Database querying
-     - Data visualization
-     - Statistical analysis
-     - Report generation
+**Your documents are safe:**
+- Files are processed locally in your browser first
+- Nothing gets stored permanently anywhere
+- AI processing happens on secure edge servers
+- Your API keys stay in your environment variables
 
-4. **Personal Productivity Assistant**
-   - Implement tools for:
-     - Task scheduling with flexible timing options
-     - One-time, delayed, and recurring task management
-     - Task tracking with reminders
-     - Email drafting
-     - Note taking
+**No vendor lock-in:**
+- Deploy to your own Cloudflare account
+- Use your own AI API keys
+- Full control over your data and processing
 
-5. **Scheduling Assistant**
-   - Build tools for:
-     - One-time event scheduling using specific dates
-     - Delayed task execution (e.g., "remind me in 30 minutes")
-     - Recurring tasks using cron patterns
-     - Task payload management
-     - Flexible scheduling patterns
+## 🤝 Want to Help Make This Better?
 
-Each use case can be implemented by:
+I'd love your contributions! Here are some ideas:
 
-1. Adding relevant tools in `tools.ts`
-2. Customizing the UI for specific interactions
-3. Extending the agent's capabilities in `server.ts`
-4. Adding any necessary external API integrations
+**Easy wins:**
+- 🐛 Found a bug? [Open an issue](https://github.com/bradenweii/cf_ai_preread_generator/issues)
+- 📝 Improve the documentation
+- 🎨 Make the UI even prettier
+- 📧 Add more email template options
 
-## Learn More
+**Bigger features:**
+- 🔗 Integration with Slack/Teams for direct sending
+- 📊 Analytics on meeting prep time saved
+- 🗓️ Calendar integration for automatic scheduling
+- 🌍 Multi-language support
 
-- [`agents`](https://github.com/cloudflare/agents/blob/main/packages/agents/README.md)
-- [Cloudflare Agents Documentation](https://developers.cloudflare.com/agents/)
-- [Cloudflare Workers Documentation](https://developers.cloudflare.com/workers/)
+Just fork it, make your changes, and send a PR. I'm pretty responsive!
 
-## License
+## 💬 Questions or Issues?
 
-MIT
+- **Found a bug?** [Open an issue](https://github.com/bradenweii/cf_ai_preread_generator/issues)
+- **Need help?** Check out the [Cloudflare Agents docs](https://developers.cloudflare.com/agents/) or [Cloudflare Discord](https://discord.cloudflare.com)
+- **Want to chat?** Feel free to reach out through GitHub issues
+
+## 📝 License
+
+MIT License - basically, do whatever you want with this code. Just don't blame me if your sprint meetings become too efficient! 😄
+
+---
+
+## 🎉 Thanks
+
+Huge thanks to the Cloudflare team for building such an awesome platform. The [Agents framework](https://github.com/cloudflare/agents) made this project possible, and Workers makes deployment a breeze.
+
+**Ready to never manually write a sprint pre-read again?** 🚀  
+
+👆 [Deploy it now](https://deploy.workers.cloudflare.com/?url=https://github.com/bradenweii/cf_ai_preread_generator) or [run it locally](#try-it-out) and see the magic happen!
